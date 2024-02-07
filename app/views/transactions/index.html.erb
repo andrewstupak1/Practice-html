@@ -12,3 +12,23 @@ Balance for Evan: 1164 KC
 Balance for Anthony: 1456 KC
 Balance for Krystina: 3516 KC 
 -->
+<h1>Expected Balances</h1>
+
+<% transactions = Transaction.all %>
+<% users = User.all %>
+
+<<ul>
+  
+<% end %>>
+<% for transation in transactions%>
+<% transaction_name = User.find_by({"id" => transaction["to_user_id"]})%>
+  
+   <% if transaction.from_user_id == user.id %>
+   <% balance -= transaction.amount %>
+<% end %>
+  <% if transaction.to_user_id == user.id %>
+  <% balance += transaction.amount %>
+<% end %>
+<% end %>
+ <li><%= "#{user.name}: #{balance} KC" %></li>
+<ul>
