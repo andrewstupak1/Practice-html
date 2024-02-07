@@ -17,12 +17,13 @@ Balance for Krystina: 3516 KC
 <% transactions = Transaction.all %>
 <% users = User.all %>
 
-<<ul>
-  
-<% end %>>
-<% for transation in transactions%>
-<% transaction_name = User.find_by({"id" => transaction["to_user_id"]})%>
-  
+<<ol>
+<% for user in users %>
+<% balance = 0 %>
+<% for transaction in transactions%>
+<% to_user_id = User.find_by({"id" => transaction["to_user_id"]})%>
+<% from_user_id = User.find_by({"id" => transaction["from_user_id"]})%>
+
    <% if transaction.from_user_id == user.id %>
    <% balance -= transaction.amount %>
 <% end %>
@@ -30,5 +31,5 @@ Balance for Krystina: 3516 KC
   <% balance += transaction.amount %>
 <% end %>
 <% end %>
- <li><%= "#{user.name}: #{balance} KC" %></li>
-<ul>
+ <li><%= "Balance for #{user.name}: #{balance} KC" %></li>
+<ol>
